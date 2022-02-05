@@ -18,9 +18,9 @@ public class DeleteProduct {
 
         request.header("Content-Type", "application/json");
 
-        Response response = request.delete("/products/1");
+        Response response = request.delete("/products/2");
 
         int code = response.getStatusCode();
-        Assert.assertEquals(code, 204);
+        Assert.assertEquals(code, 200);
     }
 }
