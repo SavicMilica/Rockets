@@ -1,7 +1,5 @@
 package products;
 
-import products.Product;
-
 import java.util.List;
 
 public class Products {
