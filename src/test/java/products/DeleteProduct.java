@@ -21,8 +21,6 @@ public class DeleteProduct {
 
         Response response = request.delete("/products/4");
 
-        ResponseBody myResponse = response.getBody();
-
         int code = response.getStatusCode();
         Assert.assertEquals(code, 200);
     }
