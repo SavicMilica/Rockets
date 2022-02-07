@@ -1,20 +1,18 @@
 package products;
 import common.BaseURL;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
-import org.hamcrest.Matcher;
-import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import java.util.HashMap;
 
-import static io.restassured.RestAssured.expect;
+import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
+
 
 
 public class CreateProducts {
@@ -36,9 +34,19 @@ public class CreateProducts {
 
         Response response = request.post("/products");
 
+        ResponseBody myResponse = response.getBody();
+        //System.out.println("Response Body is: " + myResponse.asString());
+
+        Assert.assertEquals(myResponse.path("title"), "Falcon 15", "title didn't match");
+        Assert.assertNotNull(myResponse.path("id"), "id is null");
+        Assert.assertEquals(myResponse.path("price"), Integer.valueOf(50), "price didn't match");
+        Assert.assertEquals(myResponse.path("currency"), "EUR", "currency didn't match");
+
         int code = response.getStatusCode();
 
         Assert.assertEquals(code, 201);
+
+
     }
 
 }
