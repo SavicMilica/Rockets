@@ -1,4 +1,6 @@
-package products;
+package products.models;
+
+import products.models.Product;
 
 import java.util.List;
 

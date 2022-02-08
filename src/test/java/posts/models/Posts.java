@@ -1,4 +1,6 @@
-package posts;
+package posts.models;
+
+import posts.models.Post;
 
 import java.util.List;
 

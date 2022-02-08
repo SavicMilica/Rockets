@@ -1,4 +1,4 @@
-package posts;
+package posts.models;
 
 public class Post {
     private Integer id;

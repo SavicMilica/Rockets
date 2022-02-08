@@ -1,4 +1,4 @@
-package products;
+package products.models;
 
 public class Product {
     private Integer id;
