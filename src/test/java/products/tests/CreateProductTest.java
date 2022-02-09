@@ -22,19 +22,12 @@ public class CreateProductTest extends TestBase{
 
     @Test
     public void createProductTest() {
-    RequestSpecification request = given();
-
-    request.header(CONTENT, JSON_FORMAT);
-
     HashMap<String, Object> body = new HashMap<>();
             body.put("title", PRODUCT_TITLE);
             body.put("price", PRODUCT_PRICE);
             body.put("currency", PRODUCT_CURRENCY);
 
-            request.body(body);
-
-    Response response = request.post(PRODUCTS);
-
+        Response response = given().header(CONTENT, JSON_FORMAT).body(body).post(PRODUCTS);
         ResponseBody myResponse = response.getBody();
 
         Assert.assertEquals(myResponse.path("title"), PRODUCT_TITLE,"title didn't match");
@@ -43,10 +36,8 @@ public class CreateProductTest extends TestBase{
         Assert.assertEquals(myResponse.path("currency"), PRODUCT_CURRENCY, "currency didn't match");
 
         int code = response.getStatusCode();
-
         Assert.assertEquals(code, 201);
     }
-
 }
 
 
