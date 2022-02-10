@@ -13,6 +13,7 @@ import products.apimethods.CreateProduct;
 import static io.restassured.RestAssured.given;
 import static products.constants.Header.CONTENT;
 import static products.constants.Header.JSON_FORMAT;
+import static products.constants.KeyParameters.ID;
 import static products.constants.ProductsPath.PRODUCTS;
 
 public class DeleteProductTest extends TestBase {
@@ -21,7 +22,7 @@ public class DeleteProductTest extends TestBase {
 
     @BeforeClass
     public void prepareData() {
-        productId = CreateProduct.createProduct("Rocket", 0, "EUR").path("id");
+        productId = CreateProduct.createProduct("Rocket", 0, "EUR").path(ID);
     }
 
     @Test
