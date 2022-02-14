@@ -1,4 +1,4 @@
-package products.constants;
+package constants;
 
 
 public class Header {

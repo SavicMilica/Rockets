@@ -7,10 +7,10 @@ import org.testng.annotations.Test;
 import products.models.ProductRequest;
 
 import static io.restassured.RestAssured.given;
-import static products.constants.Header.CONTENT;
-import static products.constants.Header.JSON_FORMAT;
-import static products.constants.KeyParameters.*;
-import static products.constants.ProductsPath.PRODUCTS;
+import static constants.Header.CONTENT;
+import static constants.Header.JSON_FORMAT;
+import static constants.KeyParameters.*;
+import static constants.ApiEndpoints.PRODUCTS;
 
 
 public class CreateProductTest extends TestBase{

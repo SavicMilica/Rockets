@@ -10,13 +10,10 @@ import posts.models.PostRequest;
 import products.apimethods.CreateProduct;
 
 import static io.restassured.RestAssured.given;
-import static posts.constants.KeyParameters.*;
-import static posts.constants.PostsPath.POSTS;
-import static products.constants.Header.CONTENT;
-import static products.constants.Header.JSON_FORMAT;
-import static products.constants.KeyParameters.ID;
-import static products.constants.KeyParameters.TITLE;
-import static products.constants.ProductsPath.PRODUCTS;
+import static constants.ApiEndpoints.POSTS;
+import static constants.Header.CONTENT;
+import static constants.Header.JSON_FORMAT;
+import static constants.KeyParameters.*;
 
 public class CreatePostTest extends TestBase {
 

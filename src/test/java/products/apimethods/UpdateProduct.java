@@ -1,20 +1,12 @@
 package products.apimethods;
 
-import common.TestBase;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 import products.models.ProductRequest;
 
-import java.util.HashMap;
-
 import static io.restassured.RestAssured.given;
-import static products.constants.Header.CONTENT;
-import static products.constants.Header.JSON_FORMAT;
-import static products.constants.KeyParameters.*;
-import static products.constants.ProductsPath.PRODUCTS;
+import static constants.Header.CONTENT;
+import static constants.Header.JSON_FORMAT;
+import static constants.ApiEndpoints.PRODUCTS;
 
 public class UpdateProduct {
 

@@ -11,14 +11,10 @@ import posts.models.PostRequest;
 import products.apimethods.CreateProduct;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.post;
-import static posts.constants.KeyParameters.AUTHOR;
-import static posts.constants.KeyParameters.RELATED_PRODUCT_ID;
-import static posts.constants.PostsPath.POSTS;
-import static products.constants.Header.CONTENT;
-import static products.constants.Header.JSON_FORMAT;
-import static products.constants.KeyParameters.ID;
-import static products.constants.KeyParameters.TITLE;
+import static constants.ApiEndpoints.POSTS;
+import static constants.Header.CONTENT;
+import static constants.Header.JSON_FORMAT;
+import static constants.KeyParameters.*;
 
 public class UpdatePostTest extends TestBase {
 

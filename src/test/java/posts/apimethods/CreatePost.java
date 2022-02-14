@@ -4,9 +4,9 @@ import io.restassured.response.Response;
 import posts.models.PostRequest;
 
 import static io.restassured.RestAssured.given;
-import static posts.constants.PostsPath.POSTS;
-import static products.constants.Header.CONTENT;
-import static products.constants.Header.JSON_FORMAT;
+import static constants.ApiEndpoints.POSTS;
+import static constants.Header.CONTENT;
+import static constants.Header.JSON_FORMAT;
 
 public class CreatePost {
 
