@@ -1,7 +1,6 @@
 package tests.products;
-import common.RestAssuredMethods;
+import apimethods.ProductAPI;
 import common.TestBase;
-import constants.ApiEndpoints;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -10,20 +9,11 @@ import static constants.KeyParameters.*;
 
 public class CreateProductTest extends TestBase{
 
-    private String PRODUCT_TITLE = "Falcon 15";
-    private Integer PRODUCT_PRICE = 50;
-    private String PRODUCT_CURRENCY = "EUR";
-
     @Test
     public void createProductTest() {
-        ProductRequest productRequest = new ProductRequest();
-        productRequest.setTitle(PRODUCT_TITLE);
-        productRequest.setPrice(PRODUCT_PRICE);
-        productRequest.setCurrency(PRODUCT_CURRENCY);
+        ProductRequest productRequest = new ProductRequest("Falcon 15", 10, "EUR");
 
-        //ProductRequest useConstructor = new ProductRequest(PRODUCT_TITLE, PRODUCT_PRICE, PRODUCT_CURRENCY);
-
-        Response response = RestAssuredMethods.post(productRequest, ApiEndpoints.PRODUCTS);
+        Response response = ProductAPI.createProduct(productRequest);
 
         Assert.assertEquals(response.path(TITLE), productRequest.getTitle(),"title didn't match");
         Assert.assertNotNull(response.path(ID), "id is null");

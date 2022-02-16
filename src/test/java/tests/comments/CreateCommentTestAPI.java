@@ -1,35 +1,33 @@
 package tests.comments;
 
+import apimethods.CommentAPI;
+import constants.KeyParameters;
 import models.comments.CommentRequest;
-import common.RestAssuredMethods;
 import common.TestBase;
-import constants.ApiEndpoints;
 import io.restassured.response.Response;
+import models.posts.PostRequest;
+import models.products.ProductRequest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import apimethods.posts.CreatePost;
-import apimethods.products.CreateProduct;
+import apimethods.PostAPI;
+import apimethods.ProductAPI;
 import static constants.KeyParameters.*;
 
-public class CreateCommentTest extends TestBase {
+public class CreateCommentTestAPI extends TestBase {
     public Integer postId;
     public Integer relatedProductId;
-    public String COMMENT_BODY = "Lovely comment";
 
     @BeforeTest
     public void prepareData() {
-        relatedProductId = CreateProduct.createProduct("New product", 10, "EUR").path(ID);
-        postId = CreatePost.createPost("New post", relatedProductId, "New author").path(ID);
+        relatedProductId = ProductAPI.createProduct(new ProductRequest("New product", 10, "EUR")).path(KeyParameters.ID);
+        postId = PostAPI.createPost(new PostRequest("New post", relatedProductId, "Milica")).path(KeyParameters.ID);
     }
 
     @Test
     public void createComment() {
-        CommentRequest commentRequest = new CommentRequest();
-        commentRequest.setBody(COMMENT_BODY);
-        commentRequest.setPostId(postId);
-
-        Response response = RestAssuredMethods.post(commentRequest, ApiEndpoints.COMMENTS);
+        CommentRequest commentRequest = new CommentRequest("Lovely comment", postId);
+        Response response = CommentAPI.createComment(commentRequest);
 
         Assert.assertEquals(response.path(BODY), commentRequest.getBody(), "body didn't match");
         Assert.assertEquals(response.path(POST_ID), commentRequest.getPostId(), "post id didn't match");

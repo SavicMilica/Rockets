@@ -1,27 +1,27 @@
 package tests.products;
 
-import common.RestAssuredMethods;
+
 import common.TestBase;
-import constants.ApiEndpoints;
 import constants.KeyParameters;
 import io.restassured.response.Response;
+import models.products.ProductRequest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import apimethods.products.CreateProduct;
+import apimethods.ProductAPI;
 
 public class DeleteProductTest extends TestBase {
     Integer productId;
 
     @BeforeTest
     public void prepareData() {
-        productId = CreateProduct.createProduct("Rocket", 0, "EUR").path(KeyParameters.ID);
+        productId = ProductAPI.createProduct(new ProductRequest("Rocket", 0, "EUR")).path(KeyParameters.ID);
     }
 
     @Test
     public void deleteProduct() {
-        Response response = RestAssuredMethods.delete(ApiEndpoints.product(productId));
-        Response myResponse = RestAssuredMethods.get(ApiEndpoints.product(productId));
+        Response response = ProductAPI.deleteProduct(productId);
+        Response myResponse = ProductAPI.getProductById(productId);
 
         int code = response.getStatusCode();
         Assert.assertEquals(code, 200);
