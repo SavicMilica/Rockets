@@ -1,5 +1,5 @@
 package apimethods;
-import models.comments.CommentRequest;
+import data.models.comments.CommentRequest;
 import common.RestAssuredMethods;
 import constants.ApiEndpoints;
 import io.restassured.response.Response;

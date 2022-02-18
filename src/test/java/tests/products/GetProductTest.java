@@ -1,10 +1,8 @@
 package tests.products;
-import common.RestAssuredMethods;
 import common.TestBase;
-import constants.ApiEndpoints;
 import constants.KeyParameters;
+import data.providers.ProductData;
 import io.restassured.response.Response;
-import models.products.ProductRequest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -17,7 +15,7 @@ public class GetProductTest extends TestBase {
 
     @BeforeClass
     public void prepareData() {
-        productId = ProductAPI.createProduct(new ProductRequest("Rocket", 15, "EUR")).path(KeyParameters.ID);
+        productId = ProductAPI.createProduct(ProductData.prepareProductRequest()).path(KeyParameters.ID);
     }
 
     @Test

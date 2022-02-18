@@ -3,12 +3,13 @@ package tests.posts;
 import apimethods.PostAPI;
 import common.TestBase;
 import constants.KeyParameters;
+import data.providers.PostData;
+import data.providers.ProductData;
 import io.restassured.response.Response;
-import models.products.ProductRequest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import models.posts.PostRequest;
+import data.models.posts.PostRequest;
 import apimethods.ProductAPI;
 import static constants.KeyParameters.*;
 
@@ -17,12 +18,12 @@ public class CreatePostTestAPI extends TestBase {
 
     @BeforeClass
     public void prepareData() {
-        relatedProductId = ProductAPI.createProduct(new ProductRequest("Falcon", 20, "EUR")).path(KeyParameters.ID);
+        relatedProductId = ProductAPI.createProduct(ProductData.prepareProductRequest()).path(KeyParameters.ID);
     }
 
     @Test
     public void createPost() {
-        PostRequest postRequest = new PostRequest("New masterpiece", relatedProductId, "Milica");
+        PostRequest postRequest = PostData.preparePostData(relatedProductId);
         Response response = PostAPI.createPost(postRequest);
 
         Assert.assertEquals(response.path(TITLE), postRequest.getTitle(), "title didn't match");

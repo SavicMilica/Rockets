@@ -1,10 +1,9 @@
 package tests.products;
 
-
 import common.TestBase;
 import constants.KeyParameters;
+import data.providers.ProductData;
 import io.restassured.response.Response;
-import models.products.ProductRequest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -15,7 +14,7 @@ public class DeleteProductTest extends TestBase {
 
     @BeforeTest
     public void prepareData() {
-        productId = ProductAPI.createProduct(new ProductRequest("Rocket", 0, "EUR")).path(KeyParameters.ID);
+        productId = ProductAPI.createProduct(ProductData.prepareProductRequest()).path(KeyParameters.ID);
     }
 
     @Test

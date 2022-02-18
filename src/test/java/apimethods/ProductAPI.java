@@ -2,7 +2,7 @@ package apimethods;
 import common.RestAssuredMethods;
 import constants.ApiEndpoints;
 import io.restassured.response.Response;
-import models.products.ProductRequest;
+import data.models.products.ProductRequest;
 
 public class ProductAPI {
     public static Response createProduct(ProductRequest productRequest) {

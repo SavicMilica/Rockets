@@ -3,7 +3,7 @@ package apimethods;
 import common.RestAssuredMethods;
 import constants.ApiEndpoints;
 import io.restassured.response.Response;
-import models.posts.PostRequest;
+import data.models.posts.PostRequest;
 
 public class PostAPI {
 

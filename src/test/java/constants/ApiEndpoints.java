@@ -2,8 +2,8 @@ package constants;
 
 public class ApiEndpoints {
     public static final String POSTS = "/posts/";
-    public static String PRODUCTS = "/products/";
-    public static String COMMENTS = "/comments/";
+    public static final String PRODUCTS = "/products/";
+    public static final String COMMENTS = "/comments/";
 
     public static String product(Integer productId) {
         return PRODUCTS + productId;

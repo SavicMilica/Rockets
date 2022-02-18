@@ -1,13 +1,14 @@
 package tests.posts;
 import common.TestBase;
 import constants.KeyParameters;
+import data.providers.PostData;
+import data.providers.ProductData;
 import io.restassured.response.Response;
-import models.products.ProductRequest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import apimethods.PostAPI;
-import models.posts.PostRequest;
+import data.models.posts.PostRequest;
 import apimethods.ProductAPI;
 import static constants.KeyParameters.*;
 
@@ -17,13 +18,13 @@ public class UpdatePostTestAPI extends TestBase {
 
    @BeforeTest
    public void prepareData() {
-       relatedProductId = ProductAPI.createProduct(new ProductRequest("Rocket", 100, "DIN")).path(KeyParameters.ID);
-       postId = PostAPI.createPost(new PostRequest("New post", relatedProductId, "Milica")).path(KeyParameters.ID);
+       relatedProductId = ProductAPI.createProduct(ProductData.prepareProductRequest()).path(KeyParameters.ID);
+       postId = PostAPI.createPost(PostData.preparePostData(relatedProductId)).path(KeyParameters.ID);
    }
 
     @Test
     public void updatePost() {
-        PostRequest postRequest = new PostRequest(postId, "Title update", relatedProductId, "Milos");
+        PostRequest postRequest = PostData.preparePostDataForUpdate(postId, relatedProductId);
         Response response = PostAPI.updatePost(postRequest, postId);
 
         Assert.assertEquals(response.path(ID), postRequest.getId(), "id didn't match");

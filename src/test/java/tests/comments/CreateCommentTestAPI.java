@@ -1,32 +1,27 @@
 package tests.comments;
 
 import apimethods.CommentAPI;
-import constants.KeyParameters;
-import models.comments.CommentRequest;
+import data.models.comments.CommentRequest;
 import common.TestBase;
+import data.providers.CommentData;
 import io.restassured.response.Response;
-import models.posts.PostRequest;
-import models.products.ProductRequest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import apimethods.PostAPI;
-import apimethods.ProductAPI;
 import static constants.KeyParameters.*;
 
 public class CreateCommentTestAPI extends TestBase {
-    public Integer postId;
-    public Integer relatedProductId;
+
+    Integer postId;
 
     @BeforeTest
     public void prepareData() {
-        relatedProductId = ProductAPI.createProduct(new ProductRequest("New product", 10, "EUR")).path(KeyParameters.ID);
-        postId = PostAPI.createPost(new PostRequest("New post", relatedProductId, "Milica")).path(KeyParameters.ID);
+        postId = CommentData.getPostId();
     }
 
     @Test
     public void createComment() {
-        CommentRequest commentRequest = new CommentRequest("Lovely comment", postId);
+        CommentRequest commentRequest = CommentData.prepareCommentData(postId);
         Response response = CommentAPI.createComment(commentRequest);
 
         Assert.assertEquals(response.path(BODY), commentRequest.getBody(), "body didn't match");

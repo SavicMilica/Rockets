@@ -1,22 +1,15 @@
-package models.products;
+package data.models.products;
 
-public class ProductRequest {
-
+public class Product {
     private Integer id;
     private String title;
     private Integer price;
     private String currency;
 
-    public ProductRequest() {
+    public Product() {
     }
 
-    public ProductRequest(String title, Integer price, String currency) {
-        this.title = title;
-        this.price = price;
-        this.currency = currency;
-    }
-
-    public ProductRequest(Integer id, String title, Integer price, String currency) {
+    public Product(Integer id, String title, Integer price, String currency) {
         this.id = id;
         this.title = title;
         this.price = price;

@@ -1,22 +1,16 @@
-package models.posts;
+package data.models.posts;
 
-public class PostRequest {
+public class Post {
     private Integer id;
     private String title;
     private Integer relatedProductId;
     private String author;
 
-    public PostRequest() {
+    public Post() {
     }
 
-    public PostRequest(Integer id, String title, Integer relatedProductId, String author) {
+    public Post(Integer id, String title, Integer relatedProductId, String author) {
         this.id = id;
-        this.title = title;
-        this.relatedProductId = relatedProductId;
-        this.author = author;
-    }
-
-    public PostRequest(String title, Integer relatedProductId, String author) {
         this.title = title;
         this.relatedProductId = relatedProductId;
         this.author = author;

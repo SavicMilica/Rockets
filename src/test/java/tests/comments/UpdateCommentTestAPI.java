@@ -1,13 +1,12 @@
 package tests.comments;
 import apimethods.CommentAPI;
 import constants.KeyParameters;
-import models.comments.CommentRequest;
-import common.RestAssuredMethods;
+import data.models.comments.CommentRequest;
 import common.TestBase;
-import constants.ApiEndpoints;
+import data.providers.CommentData;
 import io.restassured.response.Response;
-import models.posts.PostRequest;
-import models.products.ProductRequest;
+import data.models.posts.PostRequest;
+import data.models.products.ProductRequest;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -16,21 +15,18 @@ import apimethods.ProductAPI;
 import static constants.KeyParameters.*;
 
 public class UpdateCommentTestAPI extends TestBase {
-    private Integer relatedProductId;
     private Integer postId;
     private Integer commentId;
-    private String COMMENT_BODY = "This is awesome";
 
     @BeforeTest
     public void prepareData() {
-        relatedProductId = ProductAPI.createProduct(new ProductRequest("Rocket", 10, "EUR")).path(KeyParameters.ID);
-        postId = PostAPI.createPost(new PostRequest("New post", relatedProductId, "Milica")).path(KeyParameters.ID);
-        commentId = CommentAPI.createComment(new CommentRequest("Comment for update", postId)).path(KeyParameters.ID);
+        postId = CommentData.getPostId();
+        commentId = CommentAPI.createComment(CommentData.prepareCommentData(postId)).path(KeyParameters.ID);
     }
 
     @Test
     public void updateComment() {
-        CommentRequest commentRequest = new CommentRequest(commentId, "This is awesome", postId);
+        CommentRequest commentRequest = CommentData.prepareCommentDataForUpdate(commentId, postId);
 
         Response response = CommentAPI.updateComment(commentRequest, commentId);
 

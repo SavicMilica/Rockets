@@ -1,6 +1,4 @@
-package models.comments;
-
-import models.comments.Comment;
+package data.models.comments;
 
 import java.util.List;
 
