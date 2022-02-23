@@ -1,27 +1,38 @@
 package apimethods;
 import common.RestAssuredMethods;
 import constants.ApiEndpoints;
+import data.models.products.Product;
+import gson.GsonSetup;
 import io.restassured.response.Response;
 import data.models.products.ProductRequest;
 
 public class ProductAPI {
-    public static Response createProduct(ProductRequest productRequest) {
-        return RestAssuredMethods.post(productRequest, ApiEndpoints.PRODUCTS);
+    public static Product createProduct(ProductRequest productRequest) {
+        return GsonSetup.convertJsonToClass
+                (RestAssuredMethods.post(productRequest, ApiEndpoints.PRODUCTS), Product.class);
     }
 
-    public static Response updateProduct(ProductRequest productRequest, Integer productId) {
-        return RestAssuredMethods.put(productRequest, ApiEndpoints.product(productId));
+    public static Product updateProduct(ProductRequest productRequest, Integer productId) {
+        return GsonSetup.convertJsonToClass
+                (RestAssuredMethods.put(productRequest, ApiEndpoints.product(productId)), Product.class);
     }
 
-    public static Response getProductById(Integer productId) {
-        return RestAssuredMethods.get(ApiEndpoints.product(productId));
+    public static Product getProductById(Integer productId) {
+        return GsonSetup.convertJsonToClass
+                (RestAssuredMethods.get(ApiEndpoints.product(productId)), Product.class);
     }
 
     public static Response getAllProducts() {
+
         return RestAssuredMethods.get(ApiEndpoints.PRODUCTS);
     }
 
-    public static Response deleteProduct(Integer productId) {
-        return RestAssuredMethods.delete(ApiEndpoints.product(productId));
+    public static EmptyClass deleteProduct(Integer productId) {
+        return GsonSetup.convertJsonToClass
+                (RestAssuredMethods.delete(ApiEndpoints.product(productId)), EmptyClass.class);
+    }
+
+    public static EmptyClass getProductWithError(Integer productId) {
+        return GsonSetup.convertErrorResponse(RestAssuredMethods.get(ApiEndpoints.product(productId)), EmptyClass.class);
     }
 }

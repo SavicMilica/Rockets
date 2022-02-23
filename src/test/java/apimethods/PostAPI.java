@@ -2,28 +2,38 @@ package apimethods;
 
 import common.RestAssuredMethods;
 import constants.ApiEndpoints;
+import data.models.posts.Post;
+import gson.GsonSetup;
 import io.restassured.response.Response;
 import data.models.posts.PostRequest;
 
 public class PostAPI {
 
-    public static Response createPost(PostRequest postRequest) {
-        return RestAssuredMethods.post(postRequest, ApiEndpoints.POSTS);
+    public static Post createPost(PostRequest postRequest) {
+        return GsonSetup.convertJsonToClass
+                (RestAssuredMethods.post(postRequest, ApiEndpoints.POSTS), Post.class);
     }
 
-    public static Response updatePost(PostRequest postRequest, Integer postId) {
-        return RestAssuredMethods.put(postRequest, ApiEndpoints.post(postId));
+    public static Post updatePost(PostRequest postRequest, Integer postId) {
+        return GsonSetup.convertJsonToClass
+                (RestAssuredMethods.put(postRequest, ApiEndpoints.post(postId)), Post.class);
     }
 
-    public static Response getPostById(Integer postId) {
-        return RestAssuredMethods.get(ApiEndpoints.post(postId));
+    public static Post getPostById(Integer postId) {
+        return GsonSetup.convertJsonToClass
+                (RestAssuredMethods.get(ApiEndpoints.post(postId)), Post.class);
     }
 
     public static Response getAllPosts() {
         return RestAssuredMethods.get(ApiEndpoints.POSTS);
     }
 
-    public static Response deletePost(Integer postId) {
-        return RestAssuredMethods.delete(ApiEndpoints.post(postId));
+    public static EmptyClass deletePost(Integer postId) {
+        return GsonSetup.convertJsonToClass
+                (RestAssuredMethods.delete(ApiEndpoints.post(postId)), EmptyClass.class);
+    }
+
+    public static EmptyClass getPostWithError(Integer postId) {
+        return GsonSetup.convertErrorResponse(RestAssuredMethods.get(ApiEndpoints.post(postId)), EmptyClass.class);
     }
 }

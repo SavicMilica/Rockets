@@ -1,28 +1,25 @@
 package tests.products;
+import asserts.ProductAssert;
 import common.TestBase;
-import constants.KeyParameters;
+import data.models.products.Product;
 import data.providers.ProductData;
-import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import apimethods.ProductAPI;
-import static constants.KeyParameters.ID;
 
 public class GetProductTest extends TestBase {
 
-    private Integer productId;
+    private Product createdProduct;
 
     @BeforeClass
     public void prepareData() {
-        productId = ProductAPI.createProduct(ProductData.prepareProductRequest()).path(KeyParameters.ID);
+        createdProduct = ProductAPI.createProduct(ProductData.prepareProductRequest());
     }
 
     @Test
     public void getProduct() {
-        Response response = ProductAPI.getProductById(productId);
-        Assert.assertEquals(response.path(ID), productId, "id didn't match");
-        int code = response.getStatusCode();
-        Assert.assertEquals(code, 200);
+        Product actualProduct = ProductAPI.getProductById(createdProduct.getId());
+        Product expectedProduct = Product.parseFullProductResponse(createdProduct);
+        ProductAssert.getProductAssert(actualProduct, expectedProduct);
     }
 }

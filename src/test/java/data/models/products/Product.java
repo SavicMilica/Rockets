@@ -16,6 +16,25 @@ public class Product {
         this.currency = currency;
     }
 
+    public static Product parseFullCreateProductResponse(ProductRequest productRequest) {
+        Product productResponse = new Product();
+        productResponse.setId(productRequest.getId());
+        productResponse.setTitle(productRequest.getTitle());
+        productResponse.setPrice(productRequest.getPrice());
+        productResponse.setCurrency(productRequest.getCurrency());
+        return productResponse;
+    }
+
+    public static Product parseFullProductResponse(Product createdProduct) {
+        Product product = new Product();
+        product.setId(createdProduct.getId());
+        product.setTitle(createdProduct.getTitle());
+        product.setPrice(createdProduct.getPrice());
+        product.setCurrency(createdProduct.getCurrency());
+        return product;
+    }
+
+
     public Integer getId() {
         return id;
     }

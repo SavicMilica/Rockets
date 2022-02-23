@@ -1,30 +1,28 @@
 package tests.products;
 
+import apimethods.EmptyClass;
+import apimethods.PostAPI;
 import common.TestBase;
-import constants.KeyParameters;
 import data.providers.ProductData;
-import io.restassured.response.Response;
 import org.testng.Assert;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import apimethods.ProductAPI;
 
 public class DeleteProductTest extends TestBase {
     Integer productId;
 
-    @BeforeTest
+    @BeforeMethod
     public void prepareData() {
-        productId = ProductAPI.createProduct(ProductData.prepareProductRequest()).path(KeyParameters.ID);
+        productId = ProductAPI.createProduct(ProductData.prepareProductRequest()).getId();
     }
 
     @Test
     public void deleteProduct() {
-        Response response = ProductAPI.deleteProduct(productId);
-        Response myResponse = ProductAPI.getProductById(productId);
-
-        int code = response.getStatusCode();
-        Assert.assertEquals(code, 200);
-        Assert.assertNull(myResponse.path(KeyParameters.ID), "id is not null");
-        Assert.assertEquals(myResponse.getStatusCode(), 404);
+        ProductAPI.deleteProduct(productId);
+        EmptyClass emptyClass = ProductAPI.getProductWithError(productId);
+        Assert.assertNotNull(emptyClass);
     }
 }
+
+//TODO Make two tests

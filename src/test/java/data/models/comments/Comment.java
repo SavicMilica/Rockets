@@ -14,6 +14,22 @@ public class Comment {
         this.postId = postId;
     }
 
+    public static Comment parseFullCommentResponse(CommentRequest commentRequest) {
+        Comment comment = new Comment();
+        comment.setId(commentRequest.getId());
+        comment.setBody(commentRequest.getBody());
+        comment.setPostId(commentRequest.getPostId());
+        return comment;
+    }
+
+    public static Comment parseCreatedCommentResponse(Comment createdComment) {
+        Comment comment = new Comment();
+        comment.setId(createdComment.getId());
+        comment.setBody(createdComment.getBody());
+        comment.setPostId(createdComment.getPostId());
+        return comment;
+    }
+
     public Integer getId() {
         return id;
     }

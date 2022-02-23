@@ -1,34 +1,31 @@
 package tests.posts;
 
+import asserts.PostAssert;
 import common.TestBase;
-import constants.KeyParameters;
+import data.models.posts.Post;
+import data.models.posts.PostRequest;
 import data.providers.PostData;
 import data.providers.ProductData;
-import io.restassured.response.Response;
-import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import apimethods.PostAPI;
 import apimethods.ProductAPI;
-import static constants.KeyParameters.RELATED_PRODUCT_ID;
-import static constants.KeyParameters.ID;
+
 
 public class GetPostTestAPI extends TestBase {
     Integer relatedProductId;
-    Integer postId;
+    Post createdPost;
 
     @BeforeTest
     public void prepareData() {
-        relatedProductId = ProductAPI.createProduct(ProductData.prepareProductRequest()).path(KeyParameters.ID);
-        postId = PostAPI.createPost(PostData.preparePostData(relatedProductId)).path(KeyParameters.ID);
+        relatedProductId = ProductAPI.createProduct(ProductData.prepareProductRequest()).getId();
+        createdPost = PostAPI.createPost(PostData.preparePostData(relatedProductId));
     }
 
     @Test
     public void getPost() {
-        Response response = PostAPI.getPostById(postId);
-        Assert.assertEquals(response.path(ID), postId, "id didn't match");
-        Assert.assertEquals(response.path(RELATED_PRODUCT_ID), relatedProductId, "related product id didn't match");
-        int code = response.getStatusCode();
-        Assert.assertEquals(code, 200);
+        Post actualPost = PostAPI.getPostById(createdPost.getId());
+        Post expectedPost = Post.parseFullCreatePostResponse(createdPost);
+        PostAssert.getPostAssert(actualPost, expectedPost);
     }
 }

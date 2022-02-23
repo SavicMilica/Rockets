@@ -1,10 +1,9 @@
 package tests.posts;
 
+import apimethods.EmptyClass;
 import common.TestBase;
-import constants.KeyParameters;
 import data.providers.PostData;
 import data.providers.ProductData;
-import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -17,15 +16,15 @@ public class DeletePostTestAPI extends TestBase {
 
     @BeforeTest
     public void prepareData() {
-        relatedProductId = ProductAPI.createProduct(ProductData.prepareProductRequest()).path(KeyParameters.ID);
-        postId = PostAPI.createPost(PostData.preparePostData(relatedProductId)).path(KeyParameters.ID);
+        relatedProductId = ProductAPI.createProduct(ProductData.prepareProductRequest()).getId();
+        postId = PostAPI.createPost(PostData.preparePostData(relatedProductId)).getId();
     }
 
     @Test
     public void deletePost() {
-        Response response = PostAPI.deletePost(postId);
 
-        int code = response.getStatusCode();
-        Assert.assertEquals(code, 200);
+        PostAPI.deletePost(postId);
+        EmptyClass emptyClass = PostAPI.getPostWithError(postId);
+        Assert.assertNotNull(emptyClass);
     }
 }
