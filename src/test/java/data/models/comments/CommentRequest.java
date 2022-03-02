@@ -1,14 +1,20 @@
-package comments;
+package data.models.comments;
 
-public class Comment {
+public class CommentRequest {
+
     private Integer id;
     private String body;
     private Integer postId;
 
-    public Comment() {
+    public CommentRequest() {
     }
 
-    public Comment(Integer id, String body, Integer postId) {
+    public CommentRequest(String body, Integer postId) {
+        this.body = body;
+        this.postId = postId;
+    }
+
+    public CommentRequest(Integer id, String body, Integer postId) {
         this.id = id;
         this.body = body;
         this.postId = postId;

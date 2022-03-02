@@ -1,4 +1,4 @@
-package posts;
+package data.models.posts;
 
 import java.util.List;
 

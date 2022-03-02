@@ -1,4 +1,4 @@
-package posts;
+package data.models.posts;
 
 public class Post {
     private Integer id;
@@ -14,6 +14,24 @@ public class Post {
         this.title = title;
         this.relatedProductId = relatedProductId;
         this.author = author;
+    }
+
+    public static Post parseFullProductResponse(PostRequest postRequest) {
+        Post post = new Post();
+        post.setId(postRequest.getId());
+        post.setTitle(postRequest.getTitle());
+        post.setAuthor(postRequest.getAuthor());
+        post.setRelatedProductId(postRequest.getRelatedProductId());
+        return post;
+    }
+
+    public static Post parseFullCreatePostResponse(Post createdPost) {
+        Post post = new Post();
+        post.setId(createdPost.getId());
+        post.setRelatedProductId(createdPost.getRelatedProductId());
+        post.setTitle(createdPost.getTitle());
+        post.setAuthor(createdPost.getAuthor());
+        return post;
     }
 
     public Integer getId() {

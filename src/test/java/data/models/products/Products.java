@@ -1,6 +1,4 @@
-package products;
-
-import products.Product;
+package data.models.products;
 
 import java.util.List;
 
@@ -11,6 +9,7 @@ public class Products {
     }
 
     public Products(List<Product> products) {
+
         this.products = products;
     }
 
