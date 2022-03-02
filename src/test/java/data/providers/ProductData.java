@@ -6,7 +6,7 @@ import org.testng.annotations.DataProvider;
 public class ProductData {
 
     public static ProductRequest prepareProductRequest() {
-        return new ProductRequest("Rocket", 10, "EUR");
+        return new ProductRequest("Rocket", 20, "DIN");
     }
 
     public static ProductRequest prepareProductRequestForUpdate(Integer productId) {

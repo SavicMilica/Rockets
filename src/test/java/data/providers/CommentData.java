@@ -3,7 +3,6 @@ package data.providers;
 import apimethods.CommentAPI;
 import apimethods.PostAPI;
 import apimethods.ProductAPI;
-import constants.KeyParameters;
 import data.models.comments.CommentRequest;
 
 public class CommentData {

@@ -8,6 +8,8 @@ import io.restassured.response.Response;
 import org.testng.Assert;
 
 import java.lang.reflect.Type;
+import java.util.Arrays;
+import java.util.List;
 
 public class GsonSetup {
 
@@ -46,6 +48,23 @@ public class GsonSetup {
         } catch (JsonSyntaxException |IllegalStateException e) {
             //Return the exception that occurred during the JSON serialization
             Assert.fail(classOfT + "\n returned IllegalStateException: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public static <T> List<T> parseSuccessResponseAsListToModel(Response jsonResponse, Class<T[]> classOfT) {
+        String json = jsonResponse.body().asString();
+        String prettyJsonString = "";
+        try {
+            prettyJsonString = new GsonBuilder().setPrettyPrinting().create().toJson(new JsonParser().parse(json));
+            if (jsonResponse.getStatusCode() >= 400 && jsonResponse.getStatusCode() < 600) {
+                Assert.fail("Endpoint for processing " + classOfT + "\n return error: " + prettyJsonString);
+            } else {
+                return Arrays.asList(new Gson().fromJson(prettyJsonString, (Type) classOfT));
+            }
+        } catch (JsonSyntaxException|IllegalStateException e) {
+            Assert.fail("Endpoint for processing " + classOfT + "\n return error: " + prettyJsonString +
+                    "\n serialization exception error: " + e.getMessage());
         }
         return null;
     }
